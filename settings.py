@@ -1,3 +1,4 @@
+#Statisch
 GAME_WIDTH = 1000
 GAME_HEIGHT = 1000
 FPS = 60
