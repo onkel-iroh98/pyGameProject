@@ -7,7 +7,7 @@ from settings import *
 class Game:
     def __init__(self):
         pygame.init()
-        self.screen = pygame.display.set_mode((GAME_WIDTH, GAME_HEIGHT))
+        self.screen = pygame.display.set_mode((GAME_WIDTH, GAME_HEIGHT))#self.screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN) for Fullscreen
         pygame.display.set_caption("Nils Nicklas Game")
         self.clock = pygame.time.Clock()
 
