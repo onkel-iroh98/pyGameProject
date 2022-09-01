@@ -1,6 +1,5 @@
-import time
-
 import pygame, sys
+import time
 from settings import *
 
 
@@ -12,15 +11,16 @@ class Game:
         pygame.display.set_caption("Nils Nicklas Game")
         self.clock = pygame.time.Clock()
 
-        def run(self):
-            while True:
-                for event in pygame.event.get():
-                    if event.type == pygame.QUIT:
-                        pygame.quit()
-                        sys.exit()
+    def run(self):
+        while True:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    sys.exit()
+            pygame.display.update()
+            self.clock.tick(FPS)
 
-                pygame.display.update()
-                self.clock.tick(FPS)
+
 try:
     if __name__ == "__main__":
         time.sleep(5)
