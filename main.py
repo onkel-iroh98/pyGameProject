@@ -1,8 +1,11 @@
 import pygame, sys
 import time
+
 from settings import *
+
 from handler import Handler
-from input import Input
+from level import Level
+#from input import Input
 
 #englische Variablennamen
 #kommentare deutsch
@@ -13,8 +16,9 @@ class Game:
         self.screen = pygame.display.set_mode((GAME_WIDTH, GAME_HEIGHT))#self.screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN) for Fullscreen
         pygame.display.set_caption("Nils Nicklas Game")
         self.clock = pygame.time.Clock()
-        self.handler = Handler()
-        self.input = Input()
+        #self.handler = Handler() alles mit handler auskommentiert
+        self.level = Level()
+        #self.input = Input()
 
     def run(self):
         while True:
@@ -22,7 +26,11 @@ class Game:
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     sys.exit()
-            self.handler.handle(self.input)
+
+            self.screen.fill("black")
+            #self.handler.handle(self.input)
+            self.level.run()
+
             pygame.display.update()
             self.clock.tick(FPS)
 
