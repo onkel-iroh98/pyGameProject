@@ -4,7 +4,7 @@ from settings import *
 from handler import Handler
 from input import Input
 """
-englische Variablennamen
+englische variablennamen
 kommentare deutsch
 scriptnamen klein
 """
