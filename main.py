@@ -3,10 +3,11 @@ import time
 from settings import *
 from handler import Handler
 from input import Input
-
-#englische Variablennamen
-#kommentare deutsch
-#
+"""
+englische Variablennamen
+kommentare deutsch
+scriptnamen klein
+"""
 class Game:
     def __init__(self):
         pygame.init()
