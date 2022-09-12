@@ -1,16 +1,15 @@
 import pygame
 
+from level import Level
 
 class Handler:
     def __init__(self):
-        pass
+        self.level = Level()
 
-    def handle(self, input):
-        self.update(input)
-        self.render()
+    def handle(self):
+        self.run()
 
-    def update(self, input):
-        pass
+    def run(self):
+        self.level.run()
 
-    def render(self):
-        pass
+
