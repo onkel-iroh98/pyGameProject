@@ -10,6 +10,7 @@ from level import Level
 #englische Variablennamen
 #kommentare deutsch
 #
+#hurensohn
 class Game:
     def __init__(self):
         pygame.init()
