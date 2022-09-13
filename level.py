@@ -20,7 +20,7 @@ class Level:
 
     def create_map(self):
         layouts = {
-            "boundary": import_csv_layout("levels/000/_collision.csv"),
+            "boundary": import_csv_layout("levels/001/_coll.csv"),
             #"floor": import_csv_layout("levels/000/_boden.csv"),
             "bridge": import_csv_layout("levels/000/_bridge.csv"),
             "tower": import_csv_layout("levels/000/_burg.csv"),
@@ -40,11 +40,11 @@ class Level:
                         y = row_index * TILESIZE
                         if style == "boundary":
                             Tile((x, y), [self.obstacle_sprites], "invisible")
-                        if style == "flower":
-                            random_flower_image = choice(graphics["flower"])
-                            Tile((x,y), [self.visible_sprites], "flower", random_flower_image)
+                        #if style == "flower":
+                        #    random_flower_image = choice(graphics["flower"])
+                        #    Tile((x,y), [self.visible_sprites], "flower", random_flower_image)
                         """KOMMENTAR NICHT LÖSCHEN
-                           TEILE DAVON IN "TILE" wenn ein object größer als 64x64 muss es einen offset geben
+                           TEILE DAVON IN "TILE" wenn ein object größer als 64x64 (oder was eingetragen ist als Tilesize) muss es einen offset geben
                         if style == "object":
                             surf = graphics["objects][int(col)]
                             Tile((x,y), [self.visible_sprites, self.obstacle_sprites], "object", surf)
@@ -65,7 +65,7 @@ class YSortCameraGroup(pygame.sprite.Group):
         self.offset = pygame.math.Vector2()
 
         #creating the floor
-        self.floor_surf = pygame.image.load("levels/000/Map.png").convert()
+        self.floor_surf = pygame.image.load("levels/001/Map.png").convert()
         self.floor_rect = self.floor_surf.get_rect(topleft=(0,0))
     def custom_draw(self, player):
         #getting offset

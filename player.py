@@ -5,11 +5,11 @@ class Player(pygame.sprite.Sprite):
     def __init__(self, pos, groups, obstacle_sprites):
 
         super().__init__(groups)
-        self.image = pygame.image.load("graphics/face1.png").convert_alpha()
+        self.image = pygame.image.load("graphics/001.png").convert_alpha()
         self.rect = self.image.get_rect(topleft=pos)
-        self.hitbox = self.rect.inflate(0, -26)
+        self.hitbox = self.rect.inflate(0, -6)
         self.direction = pygame.math.Vector2()
-        self.speed = 5
+        self.speed = 2 #5
 
         self.obstacle_sprites = obstacle_sprites
 
