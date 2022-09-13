@@ -43,8 +43,12 @@ class Level:
                         if style == "flower":
                             random_flower_image = choice(graphics["flower"])
                             Tile((x,y), [self.visible_sprites], "flower", random_flower_image)
-                        if style == "":
-                            pass
+                        """KOMMENTAR NICHT LÖSCHEN
+                           TEILE DAVON IN "TILE" wenn ein object größer als 64x64 muss es einen offset geben
+                        if style == "object":
+                            surf = graphics["objects][int(col)]
+                            Tile((x,y), [self.visible_sprites, self.obstacle_sprites], "object", surf)
+                        """
         self.player = Player((90, 80), [self.visible_sprites], self.obstacle_sprites)
     def run(self):
         self.draw()
