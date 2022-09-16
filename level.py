@@ -11,8 +11,9 @@ class Level:
         #ref auf Display Surface
         self.display_surface = pygame.display.get_surface()
         #sprites
-        self.visible_sprites = YSortCameraGroup()
-        self.obstacle_sprites = pygame.sprite.Group()
+        self.visible_tiles = YSortCameraGroup()
+        self.obstacle_tiles = pygame.sprite.Group()
+        self.player_sprite = YSortCameraGroup() #Das hier ist die Lösung damit der Spieler nie hinter den Sprites ist
 
 
         ###
@@ -39,32 +40,36 @@ class Level:
                         x = col_index * TILESIZE
                         y = row_index * TILESIZE
                         if style == "boundary":
-                            Tile((x, y), [self.obstacle_sprites], "invisible")
+                            Tile((x, y), [self.obstacle_tiles], "invisible")
                         if style == "ground":
                             tmp_tile = graphics["biomeGraphics"][int(col)]
-                            Tile((x,y), [self.visible_sprites], "",tmp_tile)
+                            Tile((x,y), [self.visible_tiles], "",tmp_tile)
                         if style == "tree":
                             tmp_tile = graphics["biomeGraphics"][int(col)]
-                            Tile((x, y), [self.visible_sprites], "", tmp_tile)
+                            Tile((x, y), [self.visible_tiles], "", tmp_tile)
                         if style == "object":
-                            #print(col)
+
                             tmp_tile = graphics["biomeGraphics"][int(col)]
-                            Tile((x, y), [self.visible_sprites], "", tmp_tile)
+                            Tile((x, y), [self.visible_tiles], "", tmp_tile)
                         #if style == "flower":
                         #    random_flower_image = choice(graphics["flower"])
-                        #    Tile((x,y), [self.visible_sprites], "flower", random_flower_image)
+                        #    Tile((x,y), [self.visible_tiles], "flower", random_flower_image)
                         """KOMMENTAR NICHT LÖSCHEN
                            TEILE DAVON IN "TILE" wenn ein object größer als 64x64 (oder was eingetragen ist als Tilesize) muss es einen offset geben
                         if style == "object":
                             surf = graphics["objects][int(col)]
-                            Tile((x,y), [self.visible_sprites, self.obstacle_sprites], "object", surf)
+                            Tile((x,y), [self.visible_tiles, self.obstacle_tiles], "object", surf)
                         """
-        self.player = Player((780, 40), [self.visible_sprites], self.obstacle_sprites)
+        self.player = Player((780, 40), [self.player_sprite],  self.obstacle_tiles)
     def run(self):
         self.draw()
     def draw(self):
-        self.visible_sprites.custom_draw(self.player)
-        self.visible_sprites.update()
+        self.visible_tiles.custom_draw(self.player)
+        self.visible_tiles.update()
+
+        self.player_sprite.custom_draw(self.player)   #Das hier ist die Lösung damit der Spieler nie hinter den Sprites ist
+        self.player_sprite.update()                   #Das hier ist die Lösung damit der Spieler nie hinter den Sprites ist
+
         debug((self.player.status))
 
 
@@ -94,7 +99,3 @@ class YSortCameraGroup(pygame.sprite.Group):
             offset_pos = sprite.rect.topleft - self.offset
             self.display_surface.blit(sprite.image, offset_pos)
 
-        for sprite in self.sprites():
-            if sprite.rect.height == TILESIZE * 2:
-                self.display_surface.blit(sprite.image, offset_pos)
-                #print("?")

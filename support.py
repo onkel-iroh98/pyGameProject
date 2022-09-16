@@ -16,11 +16,10 @@ def import_folder_tutorial(path):
     surface_list = []
     for _,__,img_files in walk(path):   #die ersten beiden um an die dateien zu kommen
         for img in img_files:
-            print(img_files)
             full_path = path + "/" + img
             img_surf = pygame.image.load(full_path).convert_alpha()
             surface_list.append(img_surf)
-    print(surface_list)
+
     return surface_list
 def import_folder(path):
     surface_list = []

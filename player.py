@@ -8,11 +8,13 @@ class Player(pygame.sprite.Sprite):
         super().__init__(groups)
         self.image = pygame.image.load("graphics/tiles/char/down/0.png").convert_alpha()
         self.rect = self.image.get_rect(topleft=pos)#,height=TILESIZE*2
-        self.hitbox = self.rect.inflate(0, -6)
+        self.hitbox = self.rect.inflate(0, -2)#-6
 
         #graphics setup
         self.import_player_assets()
         self.status = "down_idle"
+        self.frame_index = 0
+        self.animation_speed = 0.15
 
         #movement
         self.direction = pygame.math.Vector2()
@@ -56,7 +58,7 @@ class Player(pygame.sprite.Sprite):
         if keys[pygame.K_LCTRL] and not self.attacking:
             self.attacking = True
             self.cooldowntime = pygame.time.get_ticks()
-            print("Attack")
+
     def get_status(self):
         #idle status
         if self.direction.x == 0 and self.direction.y == 0:
@@ -91,8 +93,19 @@ class Player(pygame.sprite.Sprite):
         if self.attacking:
             if current_time - self.cooldowntime >= self.cooldown:
                 self.attacking = False
+    def animate(self):
+        animation = self.animations[self.status]
+
+        #loop over the frame index
+        self.frame_index += self.animation_speed
+        if self.frame_index >= len(animation):
+            self.frame_index = 0
+        #set the image
+        self.image = animation[int(self.frame_index)]
+        self.rect = self.image.get_rect(center = self.hitbox.center)
     def update(self):
         self.input()
         self.cooldowns()
         self.get_status()
+        self.animate()
         self.move(self.speed)

@@ -38,7 +38,7 @@ class Game:
             self.handler.handle() #LOGIK
 
             ############################################################
-            pygame.display.update()
+            pygame.display.update()         #frage was mach pygame.display.flip()
             self.clock.tick(FPS)
 
 
