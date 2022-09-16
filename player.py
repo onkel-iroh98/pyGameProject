@@ -33,7 +33,7 @@ class Player(pygame.sprite.Sprite):
         }
         for animation in self.animations.keys():
             full_path = character_path + animation
-            self.animations[animation] =  import_folder_tutorial(full_path)
+            self.animations[animation] = import_folder_tutorial(full_path)
     def input(self): #mal sehen ob methoden oder doch noch extra klasse für input
         keys = pygame.key.get_pressed()
         #movement

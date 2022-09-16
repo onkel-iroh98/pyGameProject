@@ -4,10 +4,13 @@ from settings import *
 from debug import debug
 from tile import Tile
 from player import Player
+from tile_wildpokemon import WildPokemon_Tile
 from support import *
 
 class Level:
-    def __init__(self):
+    def __init__(self, handler):
+        #oberklasse durchreichen
+        self.handler = handler
         #ref auf Display Surface
         self.display_surface = pygame.display.get_surface()
         #sprites
@@ -20,14 +23,14 @@ class Level:
         self.create_map()
 
     def create_map(self):
+        self.player = Player((300, 40), [self.player_sprite], self.obstacle_tiles)
         layouts = {
-            "boundary": import_csv_layout("levels/001/_coll.csv"),
+            "boundary": import_csv_layout("levels/002/snow_colls.csv"),
             #"floor": import_csv_layout("levels/000/_boden.csv"),
-            "ground": import_csv_layout("levels/001/_ground.csv"),
-
-            "tree": import_csv_layout("levels/001/_trees.csv"),
-            "object": import_csv_layout("levels/001/_objects.csv")
-
+            "ground": import_csv_layout("levels/002/snow_ground.csv"),
+            "tree": import_csv_layout("levels/002/snow_trees.csv"),
+            #"object": import_csv_layout("levels/001/_objects.csv")
+            "wildPokemon": import_csv_layout("levels/002/snow_wildPokemon.csv")
 
         }
         graphics = {
@@ -51,6 +54,9 @@ class Level:
 
                             tmp_tile = graphics["biomeGraphics"][int(col)]
                             Tile((x, y), [self.visible_tiles], "", tmp_tile)
+                        if style == "wildPokemon":
+                            tmp_tile = graphics["biomeGraphics"][int(col)]
+                            WildPokemon_Tile((x, y), [self.visible_tiles], "",self.handler, self.player, tmp_tile)
                         #if style == "flower":
                         #    random_flower_image = choice(graphics["flower"])
                         #    Tile((x,y), [self.visible_tiles], "flower", random_flower_image)
@@ -60,7 +66,7 @@ class Level:
                             surf = graphics["objects][int(col)]
                             Tile((x,y), [self.visible_tiles, self.obstacle_tiles], "object", surf)
                         """
-        self.player = Player((780, 40), [self.player_sprite],  self.obstacle_tiles)
+        #self.player = Player((780, 40), [self.player_sprite],  self.obstacle_tiles)
     def run(self):
         self.draw()
     def draw(self):
