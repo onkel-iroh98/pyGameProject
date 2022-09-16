@@ -1,33 +1,67 @@
 import pygame
 from settings import *
+from support import *
 
 class Player(pygame.sprite.Sprite):
     def __init__(self, pos, groups, obstacle_sprites):
 
         super().__init__(groups)
-        self.image = pygame.image.load("graphics/001.png").convert_alpha()
-        self.rect = self.image.get_rect(topleft=pos,height=TILESIZE*2)
+        self.image = pygame.image.load("graphics/tiles/char/down/0.png").convert_alpha()
+        self.rect = self.image.get_rect(topleft=pos)#,height=TILESIZE*2
         self.hitbox = self.rect.inflate(0, -6)
+
+        #graphics setup
+        self.import_player_assets()
+        self.status = "down_idle"
+
+        #movement
         self.direction = pygame.math.Vector2()
         self.speed = 2 #5
 
-        self.obstacle_sprites = obstacle_sprites
+        self.cooldown = 400#brauchen wir erstmal nicht (können später damit dinge die einen cooldown haben implementieren)
+        self.cooldowntime = None
+        self.attacking = False
 
+        self.obstacle_sprites = obstacle_sprites
+    def import_player_assets(self):
+        character_path = "graphics/tiles/char/"
+        self.animations = {
+            "up": [], "down": [], "left": [], "right": [],
+            "up_idle": [], "down_idle": [], "left_idle": [], "right_idle": [],
+        }
+        for animation in self.animations.keys():
+            full_path = character_path + animation
+            self.animations[animation] =  import_folder_tutorial(full_path)
     def input(self): #mal sehen ob methoden oder doch noch extra klasse für input
         keys = pygame.key.get_pressed()
+        #movement
         if keys[pygame.K_UP]:
             self.direction.y = -1
+            self.status = "up"
         elif keys[pygame.K_DOWN]:
             self.direction.y = 1
+            self.status = "down"
         else:
             self.direction.y = 0
 
         if keys[pygame.K_LEFT]:
             self.direction.x = -1
+            self.status = "left"
         elif keys[pygame.K_RIGHT]:
             self.direction.x = 1
+            self.status = "right"
         else:
             self.direction.x = 0
+        #attacking (brauchen wir so nicht aber einfach damit wir ähnliche sachen machen können)
+        if keys[pygame.K_LCTRL] and not self.attacking:
+            self.attacking = True
+            self.cooldowntime = pygame.time.get_ticks()
+            print("Attack")
+    def get_status(self):
+        #idle status
+        if self.direction.x == 0 and self.direction.y == 0:
+            if not "idle" in self.status:
+                self.status = self.status + "_idle"
 
     def move(self, speed):
         if self.direction.magnitude() != 0:
@@ -52,6 +86,13 @@ class Player(pygame.sprite.Sprite):
                         self.hitbox.bottom = sprite.hitbox.top
                     if self.direction.y < 0: #up
                         self.hitbox.top = sprite.hitbox.bottom
+    def cooldowns(self):
+        current_time = pygame.time.get_ticks()
+        if self.attacking:
+            if current_time - self.cooldowntime >= self.cooldown:
+                self.attacking = False
     def update(self):
         self.input()
+        self.cooldowns()
+        self.get_status()
         self.move(self.speed)

@@ -11,8 +11,8 @@ def import_csv_layout(path):
         for row in layout:
             terrain_map.append(list(row))
         return terrain_map
-"""
-def import_folder(path):
+
+def import_folder_tutorial(path):
     surface_list = []
     for _,__,img_files in walk(path):   #die ersten beiden um an die dateien zu kommen
         for img in img_files:
@@ -21,7 +21,7 @@ def import_folder(path):
             img_surf = pygame.image.load(full_path).convert_alpha()
             surface_list.append(img_surf)
     print(surface_list)
-    return surface_list"""
+    return surface_list
 def import_folder(path):
     surface_list = []
     iter = 0

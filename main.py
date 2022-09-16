@@ -36,7 +36,7 @@ class Game:
             self.screen.fill("black")
             ############################################################
             self.handler.handle() #LOGIK
-            debug(self.handler.level.player.rect)
+
             ############################################################
             pygame.display.update()
             self.clock.tick(FPS)
