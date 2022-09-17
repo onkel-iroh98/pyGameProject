@@ -15,7 +15,7 @@ class Fight():
 
     def run(self):
         self.input()
-        self.handleTextbox()
+        self.textbox.update()
         self.draw()
 
 
@@ -34,11 +34,21 @@ class Fight():
 
     def input(self):
         keys = pygame.key.get_pressed()#das hier noch über menu
-        if (keys[pygame.K_SPACE]):
+        #wo der cursor aktuell steht
+        if (keys[pygame.K_LEFT]):
+            self.selectionCursor = self.textbox.fightinput(pygame.Vector2(-1, 0))
+            print(self.selectionCursor)
+        if (keys[pygame.K_RIGHT]):
+            self.selectionCursor = self.textbox.fightinput(pygame.Vector2(1, 0))
+            print(self.selectionCursor)
+        if (keys[pygame.K_UP]):
+            self.selectionCursor = self.textbox.fightinput(pygame.Vector2(0, 1))
+            print(self.selectionCursor)
+        if (keys[pygame.K_DOWN]):
+            self.selectionCursor = self.textbox.fightinput(pygame.Vector2(0, -1))
+            print(self.selectionCursor)
+
+
+        if (keys[pygame.K_SPACE]) and self.selectionCursor == (1, 1):
             self.option_run()
-    def handleTextbox(self):
-        font = pygame.font.SysFont(None, 30)
-        img = font.render('FIGHT against ' + self.pokemon, True, "WHITE")
-        lala = font.render("Space to escape", True, "WHite")
-        self.textbox.blit(img, (10, 20))
-        self.textbox.blit(lala, (10, 70))
+
