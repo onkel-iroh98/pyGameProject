@@ -49,7 +49,6 @@ class Textbox(pygame.Surface): #vllt gibts noch bessere Erbung
         self.fightsur.blit(self.chooseCursor, ((self.locs[self.selection][0] - 20), self.locs[self.selection][1]))
 
     def fightinput(self, input):
-
         if self.selection == "fight":
             if input.x == 1:
                 self.selection = "bag"
@@ -85,7 +84,7 @@ class Textbox(pygame.Surface): #vllt gibts noch bessere Erbung
         if self.selection == "pkmn":
             return pygame.Vector2(0, 1)
         if self.selection == "run":
-            return pygame.Vector2(1,1)
+            return pygame.Vector2(1, 1)
 
 
 
