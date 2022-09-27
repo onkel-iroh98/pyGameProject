@@ -1,6 +1,1 @@
-WICHTIG TILES:
-    alles was nicht interagierbar, collidierbar usw ist wird einfach per
-    png eingefügt und muss in Tiled auf einer Layer sein.
-
-
-TODO: Glaub die textbox neu mit optionen und text als parameter oder vererbung mit textboxen
+Textbox überklasse zeilenumsprung nur zwischen wörtern machen

@@ -2,6 +2,7 @@ import pygame
 from settings import *
 
 from textbox import Textbox
+from textbox_options import Textbox_options
 
 class Fight():
     def __init__(self, handler, trainer, pokemon):
@@ -11,11 +12,11 @@ class Fight():
         self.pokemon = pokemon  #Class Pokemon Array oder nicht
         self.trainer = trainer #Bool
 
-        self.textbox = Textbox(True)
+        self.textbox = Textbox_options("Ein Wilder Hurensohn.  Was willst du tun", ["Kampf", "Beutel", "Pokemon", "Flucht"])
 
     def run(self):
         self.input()
-        self.textbox.update()
+        self.textbox.run()
         self.draw()
 
 
@@ -33,22 +34,8 @@ class Fight():
         pass
 
     def input(self):
-        keys = pygame.key.get_pressed()#das hier noch über menu
-        #wo der cursor aktuell steht
-        if (keys[pygame.K_LEFT]):
-            self.selectionCursor = self.textbox.fightinput(pygame.Vector2(-1, 0))
-            print(self.selectionCursor)
-        if (keys[pygame.K_RIGHT]):
-            self.selectionCursor = self.textbox.fightinput(pygame.Vector2(1, 0))
-            print(self.selectionCursor)
-        if (keys[pygame.K_UP]):
-            self.selectionCursor = self.textbox.fightinput(pygame.Vector2(0, 1))
-            print(self.selectionCursor)
-        if (keys[pygame.K_DOWN]):
-            self.selectionCursor = self.textbox.fightinput(pygame.Vector2(0, -1))
-            print(self.selectionCursor)
+        keys = pygame.key.get_pressed()
 
-
-        if (keys[pygame.K_SPACE]) and self.selectionCursor == (1, 1):
+        if (keys[pygame.K_SPACE]):
             self.option_run()
 
