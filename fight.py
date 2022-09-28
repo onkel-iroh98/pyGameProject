@@ -26,8 +26,12 @@ class Fight():
 
 
     def draw(self):
+        #hintergrund
         self.display_surface.blit(self.background, (0, 0))
+        #textbox
         self.display_surface.blit(self.textbox, (0, GAME_HEIGHT-TEXTBOX_HEIGHT))
+        #enemy pokemon
+        self.display_surface.blit(self.pokemon.image, (GAME_WIDTH/8*5, (GAME_HEIGHT-TEXTBOX_HEIGHT)/4))
     def menu(self):
         pass
     def option_fight(self):
