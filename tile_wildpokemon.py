@@ -1,6 +1,7 @@
 import pygame
 from random import randint
 from pokemon import Pokemon
+from support import *
 from settings import *
 
 class WildPokemon_Tile(pygame.sprite.Sprite):
@@ -21,7 +22,7 @@ class WildPokemon_Tile(pygame.sprite.Sprite):
             if self.can_encounter:
                 encounter = randint(0,19)     #5% chance auf WildesPokemon
                 if encounter == 0:            #5% chance auf WildesPokemon
-                    pokemon = Pokemon("bisaflor", 100, "male", 400, 50, 50,50,50,50,99999,None)
+                    pokemon = Pokemon(randomPokemon("graphics/Pokemon Sprites/Pokemon.csv"), 100, "male", 400, 50, 50,50,50,50,99999,None)
                     self.handler.triggerFight(self.noTrainer, pokemon)
                     self.can_encounter = False
                 else:

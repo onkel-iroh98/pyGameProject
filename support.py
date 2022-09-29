@@ -1,6 +1,7 @@
 from csv import reader
 from os import walk
-
+from csv import DictReader
+from random import randint
 import pygame
 
 
@@ -31,3 +32,10 @@ def import_folder(path):
             surface_list.append(img_surf)
             iter += 1
     return surface_list
+def randomPokemon(path):
+    rand=randint(1,493)
+    with open(path, newline='') as csvfile:
+        reader = DictReader(csvfile)
+        for row in reader:
+            if int(row["ID"]) == rand:
+                return row['Name'].lower()
