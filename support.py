@@ -32,8 +32,9 @@ def import_folder(path):
             surface_list.append(img_surf)
             iter += 1
     return surface_list
-def randomPokemon(path):
-    rand=randint(1,493)
+def randomPokemon():
+    path = "graphics/Pokemon Sprites/Pokemon.csv"
+    rand=randint(1,649)
     with open(path, newline='') as csvfile:
         reader = DictReader(csvfile)
         for row in reader:
