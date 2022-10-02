@@ -37,23 +37,21 @@ class Player(pygame.sprite.Sprite):
     def input(self): #mal sehen ob methoden oder doch noch extra klasse für input
         keys = pygame.key.get_pressed()
         #movement
+        self.direction.y = 0
+        self.direction.x = 0
         if keys[pygame.K_UP]:
             self.direction.y = -1
             self.status = "up"
         elif keys[pygame.K_DOWN]:
             self.direction.y = 1
             self.status = "down"
-        else:
-            self.direction.y = 0
-
-        if keys[pygame.K_LEFT]:
+        elif keys[pygame.K_LEFT]:
             self.direction.x = -1
             self.status = "left"
         elif keys[pygame.K_RIGHT]:
             self.direction.x = 1
             self.status = "right"
-        else:
-            self.direction.x = 0
+
         #attacking (brauchen wir so nicht aber einfach damit wir ähnliche sachen machen können)
         if keys[pygame.K_LCTRL] and not self.attacking:
             self.attacking = True
@@ -67,7 +65,7 @@ class Player(pygame.sprite.Sprite):
 
     def move(self, speed):
         if self.direction.magnitude() != 0:
-            self.direction = self.direction.normalize()
+            self.direction = self.direction.normalize() #damit bei schrägen nicht schneller gelaufen wird
         self.hitbox.x += self.direction.x * speed
         self.collision("horizontal")
         self.hitbox.y += self.direction.y * speed
