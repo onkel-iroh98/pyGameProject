@@ -82,7 +82,7 @@ class Fight():
             self.time = time.time()
             self.enemy_pokemon_frame += 1
             self.player_pokemon_frame += 1
-        if self.enemy_pokemon_frame >= len(self.enemy_pokemon.image):
+        if self.enemy_pokemon_frame >= len(self.enemy_pokemon.image)-1:
             self.enemy_pokemon_frame = 0
         if self.enemy_pokemon.animated:
             self.display_surface.blit(self.enemy_pokemon.image[self.enemy_pokemon_frame], (GAME_WIDTH/16*10, (GAME_HEIGHT-TEXTBOX_HEIGHT)/16*5))
@@ -96,7 +96,7 @@ class Fight():
             self.time = time.time()
             self.enemy_pokemon_frame += 1
             self.player_pokemon_frame += 1
-        if self.player_pokemon_frame >= len(self.enemy_pokemon.image):
+        if self.player_pokemon_frame >= len(self.enemy_pokemon.image)-1:
             self.player_pokemon_frame = 0
         if self.player_pokemon.animated:
             self.display_surface.blit(self.player_pokemon.image[self.player_pokemon_frame],
